@@ -1,0 +1,9 @@
+Initial gprof on gcc 7.10
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
+ 99.84      8.19     8.19      200    40.93    40.93  stencil
+  0.37      8.22     0.03        1    30.14    30.14  init_image
+  0.12      8.23     0.01        1    10.05    10.05  output_image
+  0.00      8.23     0.00        2     0.00     0.00  wtime
