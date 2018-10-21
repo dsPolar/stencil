@@ -1,0 +1,8 @@
+Running on host node31-037
+Time is Thu Oct 11 11:58:29 BST 2018
+Directory is /panfs/panasas01/cosc/ds16797/stencil
+PBS job ID is 7509615.master.cm.cluster
+------------------------------------
+ runtime: 8.177337 s
+------------------------------------
+Warning: Permanently added 'node31-037,10.131.0.229' (RSA) to the list of known hosts.
