@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 void stencil(const int nx, const int ny, double * image, double * tmp_image) {
   const int max = nx*ny;
   const int modnix = (max%nx)-1;
-  for(int z = 0; z =< max; z++){
+  for(int z = 0; z <= max; z++){
     tmp_image[z] = image[z] * 0.6;
     if (z > nx)    tmp_image[z] += image[z-nx] * 0.1;
     if (z < (max-nx)) tmp_image[z] += image[z+nx] * 0.1;
