@@ -68,4 +68,6 @@ Seg fault
 Result :
 0.866 Py pass
 
-10.
+10. Removed 0 checks in Stencil
+Result :
+0.840 Py fail
