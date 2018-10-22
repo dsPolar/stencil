@@ -7,3 +7,46 @@ Each sample counts as 0.01 seconds.
   0.37      8.22     0.03        1    30.14    30.14  init_image
   0.12      8.23     0.01        1    10.05    10.05  output_image
   0.00      8.23     0.00        2     0.00     0.00  wtime
+
+
+1. Swapped i and j in Stencil for loop to better fit c style
+Result :
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
+ 98.89      7.00     7.00      200    35.01    35.01  stencil
+  0.43      7.03     0.03        1    30.14    30.14  init_image
+  0.28      7.05     0.02        1    20.09    20.09  output_image
+  0.00      7.05     0.00        2     0.00     0.00  wtime
+
+2. Ran with -O3
+Result :
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
+100.33      6.82     6.82      200    34.11    34.11  stencil
+  0.15      6.83     0.01        1    10.05    10.05  init_image
+  0.00      6.83     0.00        1     0.00     0.00  output_image
+
+3. Swapped *0.5/5.0 in stencil for *0.1
+Result :
+No change with -O3
+
+4. Calculate i*ny once and reuse
+Result :
+No change with -O3
+
+
+
+5. Run ftree vectorizer
+Result :
+Stencil not vectorised
+  Nested for loop
+  Control flow in loop
+
+Checkerboard not vectorised
+  Nested for loop
+  Control flow in loop
+
+Output image not vectorised
+  loop contains function calls that can't be analysed
