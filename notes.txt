@@ -63,3 +63,9 @@ Result :
 8. Removed inequalities in Stencil
 Result :
 Seg fault
+
+9. Revert to safe commit and python Check
+Result :
+0.866 Py pass
+
+10.
