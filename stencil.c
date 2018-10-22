@@ -67,7 +67,7 @@ void stencil(const int nx, const int ny, double * image, double * tmp_image) {
   const int modnix = (max%nx)-1;
   for(int z = 0; z <= max; z++){
     tmp_image[z] = image[z] * 0.6;
-    if (z > nx)    tmp_image[z] += image[z-nx] * 0.1;
+    if (z >= nx)    tmp_image[z] += image[z-nx] * 0.1;
     if (z < (max-nx)) tmp_image[z] += image[z+nx] * 0.1;
     if (z % nx > 0)    tmp_image[z] += image[z-1] * 0.1;
     if (z < modnix) tmp_image[z] += image[z+1] * 0.1;
@@ -77,11 +77,10 @@ void stencil(const int nx, const int ny, double * image, double * tmp_image) {
 // Create the input image
 void init_image(const int nx, const int ny, double *  image, double *  tmp_image) {
   // Zero everything
-  for (int i = 0; i < nx; ++i) {
-    for (int j = 0; j < ny; ++j) {
-      image[j+i*nx] = 0.0;
-      tmp_image[j+i*nx] = 0.0;
-    }
+  const int max = nx*ny;
+  for (int z = 0; z < max; z++){
+    image[z] = 0.0;
+    tmp_image = 0.0;
   }
 
   // Checkerboard

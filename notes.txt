@@ -71,3 +71,7 @@ Result :
 10. Removed 0 checks in Stencil
 Result :
 0.840 Py fail
+
+11. Realised that could access image and tmp_image one dimensionally
+Replaced nested loops for single
+0.99 Py fail
