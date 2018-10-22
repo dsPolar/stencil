@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 }
 
 //called 200 times
-void stencil(const int nx, const int ny, double *  image, double *  tmp_image) {
+void stencil(const int nx, const int ny, double * restrict image, double * restrict tmp_image) {
   for (int i = 0; i < nx; ++i) {
     for (int j = 0; j < ny; ++j) {
       tmp_image[j+i*nx] = image[j+i*nx] * 0.6;
