@@ -80,7 +80,7 @@ void init_image(const int nx, const int ny, double *  image, double *  tmp_image
   const int max = nx*ny;
   for (int z = 0; z < max; z++){
     image[z] = 0.0;
-    tmp_image = 0.0;
+    tmp_image[z] = 0.0;
   }
 
   // Checkerboard
