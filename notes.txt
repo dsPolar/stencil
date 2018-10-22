@@ -61,3 +61,5 @@ Result :
 0.866
 
 8. Removed inequalities in Stencil
+Result :
+Seg fault
