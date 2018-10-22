@@ -1,1 +1,5 @@
 *.pgm
+vector.txt
+stencil
+stencil.pgm
+stencil.out

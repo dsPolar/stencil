@@ -1027,3 +1027,132 @@ stencil.c:128:20: note: === vect_analyze_data_ref_accesses ===
 stencil.c:128:20: note: Detected interleaving load tv.tv_sec and tv.tv_usec
 stencil.c:128:20: note: Detected interleaving load of size 2 starting with _1 = tv.tv_sec;
 stencil.c:128:20: note: not vectorized: no grouped stores in basic block.
+stencil.c:54:3: note: not vectorized: multiple nested loops.
+stencil.c:54:3: note: bad loop form.
+stencil.c:55:5: note: not vectorized: control flow in loop.
+stencil.c:55:5: note: bad loop form.
+stencil.c:55:5: note: not vectorized: control flow in loop.
+stencil.c:55:5: note: bad loop form.
+stencil.c:54:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:54:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:54:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:57:10: note: not vectorized: no grouped stores in basic block.
+stencil.c:57:39: note: not consecutive access _14 = *_13;
+stencil.c:57:39: note: not consecutive access *_13 = _23;
+stencil.c:57:39: note: not consecutive access _21 = *_20;
+stencil.c:57:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:58:10: note: not vectorized: not enough data-refs in basic block.
+stencil.c:58:39: note: not consecutive access _30 = *_29;
+stencil.c:58:39: note: not consecutive access *_29 = _39;
+stencil.c:58:39: note: not consecutive access _37 = *_36;
+stencil.c:58:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:59:10: note: not vectorized: not enough data-refs in basic block.
+stencil.c:59:39: note: not consecutive access _51 = *_50;
+stencil.c:59:39: note: not consecutive access _45 = *_44;
+stencil.c:59:39: note: not consecutive access *_44 = _53;
+stencil.c:59:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:55:5: note: not vectorized: no grouped stores in basic block.
+stencil.c:57:10: note: not vectorized: no grouped stores in basic block.
+stencil.c:57:39: note: not consecutive access _123 = *_124;
+stencil.c:57:39: note: not consecutive access _128 = *_129;
+stencil.c:57:39: note: not consecutive access *_129 = _121;
+stencil.c:57:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:58:10: note: not vectorized: not enough data-refs in basic block.
+stencil.c:58:39: note: not consecutive access _131 = *_133;
+stencil.c:58:39: note: not consecutive access _114 = *_115;
+stencil.c:58:39: note: not consecutive access *_115 = _70;
+stencil.c:58:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:59:10: note: not vectorized: not enough data-refs in basic block.
+stencil.c:59:39: note: not consecutive access _110 = *_109;
+stencil.c:59:39: note: not consecutive access _105 = *_104;
+stencil.c:59:39: note: not consecutive access *_104 = _54;
+stencil.c:59:39: note: not vectorized: no grouped stores in basic block.
+stencil.c:55:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:55:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:54:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:58:57: note: not vectorized: not enough data-refs in basic block.
+stencil.c:63:1: note: not vectorized: not enough data-refs in basic block.
+stencil.c:76:3: note: not vectorized: multiple nested loops.
+stencil.c:76:3: note: bad loop form.
+stencil.c:77:5: note: not vectorized: multiple nested loops.
+stencil.c:77:5: note: bad loop form.
+stencil.c:78:7: note: not vectorized: control flow in loop.
+stencil.c:78:7: note: bad loop form.
+stencil.c:79:9: note: Unknown alignment for access: *_16
+stencil.c:79:9: note: cost model: the vector iteration cost = 4 divided by the scalar iteration cost = 1 is greater or equal to the vectorization factor = 2.
+stencil.c:79:9: note: not vectorized: vectorization not profitable.
+stencil.c:79:9: note: not vectorized: vector version will never be profitable.
+stencil.c:68:3: note: failed: evolution of base is not affine.
+stencil.c:68:3: note: bad data references.
+stencil.c:69:5: note: versioning for alias required: can't determine dependence between *_5 and *_6
+stencil.c:69:5: note: Unknown misalignment, naturally aligned
+stencil.c:69:5: note: Unknown misalignment, naturally aligned
+stencil.c:68:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:68:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:68:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:68:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:71:25: note: not consecutive access *_95 = 0.0;
+stencil.c:71:25: note: not consecutive access *_97 = 0.0;
+stencil.c:71:25: note: not vectorized: no grouped stores in basic block.
+stencil.c:71:25: note: not vectorized: not enough data-refs in basic block.
+stencil.c:71:25: note: not vectorized: no vectype for stmt: MEM[(double *)vectp.61_139] = vect_cst__135;
+ scalar_type: vector(2) double
+stencil.c:71:25: note: not vectorized: no vectype for stmt: MEM[(double *)vectp.63_146] = vect_cst__142;
+ scalar_type: vector(2) double
+stencil.c:71:25: note: not vectorized: no grouped stores in basic block.
+stencil.c:71:25: note: not vectorized: not enough data-refs in basic block.
+stencil.c:69:5: note: not consecutive access *_4 = 0.0;
+stencil.c:69:5: note: not consecutive access *_6 = 0.0;
+stencil.c:69:5: note: not vectorized: no grouped stores in basic block.
+stencil.c:69:29: note: not consecutive access *_119 = 0.0;
+stencil.c:69:29: note: not consecutive access *_121 = 0.0;
+stencil.c:69:29: note: not vectorized: no grouped stores in basic block.
+stencil.c:69:5: note: not vectorized: no grouped stores in basic block.
+stencil.c:68:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:70:16: note: not vectorized: not enough data-refs in basic block.
+stencil.c:80:15: note: not vectorized: not enough data-refs in basic block.
+stencil.c:79:9: note: not vectorized: not enough data-refs in basic block.
+stencil.c:79:9: note: not vectorized: not enough data-refs in basic block.
+stencil.c:79:9: note: not vectorized: not enough data-refs in basic block.
+stencil.c:78:7: note: not vectorized: not enough data-refs in basic block.
+stencil.c:77:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:76:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:78:42: note: not vectorized: not enough data-refs in basic block.
+stencil.c:86:1: note: not vectorized: not enough data-refs in basic block.
+stencil.c:113:3: note: not vectorized: loop contains function calls or data references that cannot be analyzed
+stencil.c:114:5: note: not vectorized: loop contains function calls or data references that cannot be analyzed
+stencil.c:105:3: note: not vectorized: multiple nested loops.
+stencil.c:105:3: note: bad loop form.
+stencil.c:106:5: note: reduction used in loop.
+stencil.c:106:5: note: Unknown def-use cycle pattern.
+stencil.c:106:5: note: Unsupported pattern.
+stencil.c:106:5: note: not vectorized: unsupported use in stmt.
+stencil.c:106:5: note: unexpected pattern.
+stencil.c:106:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:93:6: note: not vectorized: not enough data-refs in basic block.
+stencil.c:94:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:105:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:107:10: note: not vectorized: not enough data-refs in basic block.
+stencil.c:106:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:105:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:105:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:106:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:115:7: note: not vectorized: not enough data-refs in basic block.
+stencil.c:114:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:113:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:122:1: note: not vectorized: not enough data-refs in basic block.
+stencil.c:36:3: note: not vectorized: loop contains function calls or data references that cannot be analyzed
+stencil.c:17:6: note: not vectorized: not enough data-refs in basic block.
+stencil.c:18:5: note: not consecutive access stderr.0_2 = stderr;
+stencil.c:18:5: note: not consecutive access _1 = *argv_14(D);
+stencil.c:18:5: note: not vectorized: no grouped stores in basic block.
+/usr/include/stdlib.h:286:16: note: not vectorized: not enough data-refs in basic block.
+/usr/include/stdlib.h:286:16: note: not vectorized: not enough data-refs in basic block.
+/usr/include/stdlib.h:286:16: note: not vectorized: not enough data-refs in basic block.
+stencil.c:28:11: note: not vectorized: not enough data-refs in basic block.
+stencil.c:36:3: note: not vectorized: no grouped stores in basic block.
+stencil.c:36:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:44:3: note: not vectorized: no grouped stores in basic block.
+stencil.c:45:3: note: not vectorized: not enough data-refs in basic block.
+stencil.c:14:5: note: not vectorized: not enough data-refs in basic block.
+stencil.c:128:20: note: not vectorized: no grouped stores in basic block.
