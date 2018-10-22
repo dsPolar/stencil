@@ -49,4 +49,9 @@ Checkerboard not vectorised
   Control flow in loop
 
 Output image not vectorised
-  loop contains function calls that can't be analysed
+  loop contains function calls that can't be
+
+
+6. Actually committed changes to git to be used on bcp
+Result :
+1.37 Seconds
