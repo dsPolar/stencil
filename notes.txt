@@ -90,3 +90,7 @@ Separated out computation
 Reduced conditionals
 Result :
 0.441 Py pass
+
+15. Swapped main square to nested for loops
+Result :
+0.24 Py fail
