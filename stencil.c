@@ -51,33 +51,65 @@ int main(int argc, char *argv[]) {
 
 //called 200 times
 void stencil(const int nx, const int ny, double * restrict image, double * restrict tmp_image) {
+  const int max = nx*ny;
   //Remove conditionals by precomputing
   //corners
   tmp_image[0] = image[0] * 0.6;
   tmp_image[0] += image[1] * 0.1;
   tmp_image[0] += image[nx] * 0.1;
 
+  tmp_image[nx-1] = image[nx-1] * 0.6;
+  tmp_image[nx-1] += image[nx-2] *0.1;
+  tmp_image[nx-1] += image[2*nx -1] *0.1;
 
+  tmp_image[max-nx] = image[max-nx] * 0.6;
+  tmp_image[max-nx] += image[max-(2*nx)] * 0.1;
+  tmp_image[max-nx] += image[max-nx+1] * 0.1;
 
+  tmp_image[max-1] = image[max-1] * 0.6;
+  tmp_image[max-1] += image[max-2] * 0.1;
+  tmp_image[max-1] += image[max-nx-1] * 0.1;
 
   //top row
   for (int t = 1; t < (nx-1); t++){
-
+    tmp_image[t] = image[t] * 0.6;
+    tmp_image[t] += image[t-1] * 0.1;
+    tmp_image[t] += image[t+1] * 0.1;
+    tmp_image[t] += image[t+nx] * 0.1;
   }
 
   //left column
   for (int l = nx; l <= (max-nx); l+=nx){
-
+    tmp_image[l] = image[l] *0.6;
+    tmp_image[l] += image[l-nx] *0.1;
+    tmp_image[l] += image[l+1] *0.1;
+    tmp_image[l] += image[l+nx] *0.1;
   }
 
   //right column
   for (int r = (nx-1); r < (max-nx); r+=nx){
-
+    tmp_image[r] = image[r] *0.6;
+    tmp_image[r] = image[r-nx] *0.1;
+    tmp_image[r] = image[r-1] *0.1;
+    tmp_image[r] = image[r+nx] *0.1;
   }
 
   //bottom row
   for (int b = (max-nx)+1; b < (max-1); b++){
+    tmp_image[b] = image[b] *0.6;
+    tmp_image[b] += image[b-1] *0.1;
+    tmp_image[b] += image[b+1] *0.1;
+    tmp_image[b] += image[b-nx] *0.1;
+  }
 
+  //main body square
+  //need to figure out cycle
+  for (int z = nx+1; z<(max-nx)-1; z++){
+    tmp_image[z] = image[z] *0.6;
+    tmp_image[z] += image[z-nx] *0.1;
+    tmp_image[z] += image[z-1] *0.1;
+    tmp_image[z] += image[z+1] *0.1;
+    tmp_image[z] += image[z+nx] *0.1;
   }
 
 
