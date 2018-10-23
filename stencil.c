@@ -140,6 +140,7 @@ void stencil(const int nx, const int ny, double * image, double * tmp_image) {
   }
 }
 */
+}
 // Create the input image
 void init_image(const int nx, const int ny, double *  image, double *  tmp_image) {
   // Zero everything
