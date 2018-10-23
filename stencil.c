@@ -104,7 +104,7 @@ void stencil(const int nx, const int ny, double * restrict image, double * restr
 
   //main body square
   //need to figure out cycle
-
+  /*
   for (int z = nx+1; z<(max-nx)-1; z++){
     tmp_image[z] = image[z] *0.6;
     tmp_image[z] += image[z-nx] *0.1;
@@ -113,6 +113,16 @@ void stencil(const int nx, const int ny, double * restrict image, double * restr
     tmp_image[z] += image[z+nx] *0.1;
     if(z%nx == (nx-2)){
       z+=2;
+    }
+  }
+  */
+  for(int i = 1; i<ny-1; i++){
+    for(int j = 1; j<nx-1; j++){
+      tmp_image[j+i*nx] = image[j+i*nx] *0.6;
+      tmp_image[j+i*nx] += image[j+(i-1)nx] *0.1;
+      tmp_image[j+i*nx] += image[j-1+i*nx] *0.1;
+      tmp_image[j+i*nx] += image[j+1+i*nx] *0.1;
+      tmp_image[j+i*nx] += image[j+(i+1)*nx] *0.1;
     }
   }
 
