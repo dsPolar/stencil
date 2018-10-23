@@ -51,6 +51,36 @@ int main(int argc, char *argv[]) {
 
 //called 200 times
 void stencil(const int nx, const int ny, double * restrict image, double * restrict tmp_image) {
+  //Remove conditionals by precomputing
+  //corners
+  tmp_image[0] = image[0] * 0.6;
+  tmp_image[0] += image[1] * 0.1;
+  tmp_image[0] += image[nx] * 0.1;
+
+
+
+
+  //top row
+  for (int t = 1; t < (nx-1); t++){
+
+  }
+
+  //left column
+  for (int l = nx; l <= (max-nx); l+=nx){
+
+  }
+
+  //right column
+  for (int r = (nx-1); r < (max-nx); r+=nx){
+
+  }
+
+  //bottom row
+  for (int b = (max-nx)+1; b < (max-1); b++){
+
+  }
+
+
   for (int i = 0; i < nx; ++i) {
     for (int j = 0; j < ny; ++j) {
       tmp_image[j+i*nx] = image[j+i*nx] * 0.6;
