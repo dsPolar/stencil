@@ -82,4 +82,11 @@ Result ;
 
 13. Tried restricting on stencil pointers
 Result :
+0.441 Py
+
+14. Swapped to single variable image access
+Removed nested loops
+Separated out computation
+Reduced conditionals
+Result :
 0.441 Py pass
