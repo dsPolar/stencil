@@ -1,6 +1,5 @@
 \documentclass{article}
     \usepackage[utf8]{inputenc}
-    \usepackage{amsmath}
 
     \title{Serial Code Optimisation}
     \author{David Sharp:ds16797 Candidate 36688}
@@ -33,22 +32,22 @@
     over the icc defaults.
     
     \subsection{Profiling}
-    After getting the initial simple speedup from compiler flags, I ran $gprof$ to get an intuition for where the majority of the runtime is located.
+    After getting the initial simple speedup from compiler flags, I ran gprof to get an intuition for where the majority of the runtime is located.
     The results were as following on the 1024 image.
     \begin{center}
     \begin{tabular}{ c c c c }
     Percentage Time & Self Seconds & Calls & Name \\
     99.84 & 8.19 & 200 & stencil \\
-    0.37 & 0.03 & 1 & init_image \\
-    0.12 & 0.01 & 1 & output_image \\
+    0.37 & 0.03 & 1 & init\_image \\
+    0.12 & 0.01 & 1 & output\_image \\
     0.00 & 0.00 & 2 & wtime
     \end{tabular}
     \end{center}
-    From the gprof profiling, it's very clear that the $stencil$ function is the limiter on the code speed, since it is run 200 times. As such
+    From the gprof profiling, it's very clear that the stencil function is the limiter on the code speed, since it is run 200 times. As such
     it makes the most sense to focus optimisation on this one function.
     \subsection{Applied Optimisation}
-    My first thought for optimising the code was to reduce the math operation for each part of the stencil, changing $value * 3.0/5.0$ by removing the
-    division and leaving the multiplication $value * 0.6$. While this change may be already carried out by the more rigorous compiler flags, it makes
+    My first thought for optimising the code was to reduce the math operation for each part of the stencil, changing the value change by multiplication 
+    then division by simplifying into a single multiplication. While this change may be already carried out by the more rigorous compiler flags, it makes
     the code more readable and from my own research multiplication is at least as fast as division in many languages.
     Following this 
     
