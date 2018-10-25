@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
 }
 
 //called 200 times
+/*
 void stencil(const int nx, const int ny, float * restrict image, float * restrict tmp_image) {
   for (int i = 0; i < nx; ++i) {
     for (int j = 0; j < ny; ++j) {
@@ -60,17 +61,18 @@ void stencil(const int nx, const int ny, float * restrict image, float * restric
       if (j < nx-1) tmp_image[j+i*nx] += image[j+1+i*nx] * 0.1;
     }
   }
-}
-/*
-void stencil(const int nx, const int ny, double * image, double * tmp_image) {
+}*/
+
+void stencil(const int nx, const int ny, float * restrict image, float *  restrict tmp_image) {
   const int max = nx*ny;
-  const int modnix = (max%nx)-1;
-  for(int z = 0; z <= max; z++){
+  const int upper = max-nx;
+  const int lower = nx-1;
+  for(int z = 0; z < max; z++){
     tmp_image[z] = image[z] * 0.6;
-    if (z-nx > 0)    tmp_image[z] += image[z-nx] * 0.1;
-    if (z+nx < max) tmp_image[z] += image[z+nx] * 0.1;
-    if (z % nx > 0)    tmp_image[z] += image[z-1] * 0.1;
-    if (z < modnix) tmp_image[z] += image[z+1] * 0.1;
+    if (z > lower)        tmp_image[z] += image[z-nx] * 0.1;
+    if (z < upper)        tmp_image[z] += image[z+nx] * 0.1;
+    if ((z-1) % nx != 0)  tmp_image[z] += image[z-1] * 0.1;
+    if ((z+2) % nx != 0)  tmp_image[z] += image[z+1] * 0.1;
   }
 }
 */
