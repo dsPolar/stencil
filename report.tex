@@ -15,18 +15,18 @@
     but couldn't fully implement.
     \section{Optimisations}
     \subsection{Initial State}
-    \begin{right}
+    \begin{center}
     \begin{tabular}{ c c c c }
-    Compiler settings & 1024 image & 4096 image & 8000 image
-    No flags gcc4.8.4 & 8.23s & 318s & 735s
-    No flags gcc7.1.0 & 8.20s & 433s & 577s
-    -O3 gcc7.1.0 & 6.81 & 121s & 362s
-    -Ofast gcc7.1.0 & 2.34s & 108s & 125s
-    No flags icc16 & 3.40s & 49.3s & 176s
-    -xHost icc16 & 3.42s & 49.3s & 175s
+    Compiler settings & 1024 image & 4096 image & 8000 image \\
+    No flags gcc4.8.4 & 8.23s & 318s & 735s \\
+    No flags gcc7.1.0 & 8.20s & 433s & 577s \\
+    -O3 gcc7.1.0 & 6.81 & 121s & 362s \\
+    -Ofast gcc7.1.0 & 2.34s & 108s & 125s \\
+    No flags icc16 & 3.40s & 49.3s & 176s \\
+    -xHost icc16 & 3.42s & 49.3s & 175s \\
     -Ofast icc16 & 2.13s & 93.6s & 105s
     \end{tabular}
-    \end{right}
+    \end{center}
     These initial optimisations already show some interesting results, with gcc7.1.0 not being consistently faster across different scales and the Intel
     compiler icc version 16 being significantly faster than gcc7.1.0.
     -O3 and -Ofast each gave significant speedups on gcc, while -xHost - designed to adapt the code for the specific Intel processor - offered no speedup
@@ -35,15 +35,15 @@
     \subsection{Profiling}
     After getting the initial simple speedup from compiler flags, I ran $gprof$ to get an intuition for where the majority of the runtime is located.
     The results were as following on the 1024 image.
-    \begin{right}
+    \begin{center}
     \begin{tabular}{ c c c c }
-    \% Time & Self Seconds & Calls & Name
-    99.84 & 8.19 & 200 & stencil
-    0.37 & 0.03 & 1 & init_image 
-    0.12 & 0.01 & 1 & output_image
+    Percentage Time & Self Seconds & Calls & Name \\
+    99.84 & 8.19 & 200 & stencil \\
+    0.37 & 0.03 & 1 & init_image \\
+    0.12 & 0.01 & 1 & output_image \\
     0.00 & 0.00 & 2 & wtime
     \end{tabular}
-    \end{right}
+    \end{center}
     From the gprof profiling, it's very clear that the $stencil$ function is the limiter on the code speed, since it is run 200 times. As such
     it makes the most sense to focus optimisation on this one function.
     \subsection{Applied Optimisation}
