@@ -4,6 +4,7 @@
     \title{Serial Code Optimisation}
     \author{David Sharp:ds16797 Candidate 36688}
     \date{October 2018}
+    \usepackage[legalpaper, portrait, margin=0.8cm]{geometry}
     
     \begin{document}
 
@@ -15,17 +16,17 @@
     \section{Optimisations}
     \subsection{Initial State}
     \begin{center}
-    \begin{tabular}{ c c c c }
-    Compiler settings & 1024 image & 4096 image & 8000 image \\
-    No flags gcc4.8.4 & 8.23s & 318s & 735s \\
-    No flags gcc7.1.0 & 8.20s & 433s & 577s \\
-    -O3 gcc7.1.0 & 6.81 & 121s & 362s \\
-    -Ofast gcc7.1.0 & 2.34s & 108s & 125s \\
-    No flags icc16 & 3.40s & 49.3s & 176s \\
-    -xHost icc16 & 3.42s & 49.3s & 175s \\
-    -Ofast icc16 & 2.13s & 93.6s & 105s
+    \begin{tabular}{| c | c | c | c |}
+    Compiler settings & 1024 image/s & 4096 image/s & 8000 image/s \\ \hline
+    No flags gcc4.8.4 & 8.23 & 318 & 735 \\
+    No flags gcc7.1.0 & 8.20 & 433 & 577 \\
+    -O3 gcc7.1.0 & 6.81 & 121 & 362 \\
+    -Ofast gcc7.1.0 & 2.34 & 108 & 125 \\
+    No flags icc16 & 3.40 & 49.3 & 176 \\
+    -xHost icc16 & 3.42 & 49.3 & 175 \\
+    -Ofast icc16 & 2.13 & 93.6 & 105
     \end{tabular}
-    \end{center}
+    \end{right}
     These initial optimisations already show some interesting results, with gcc7.1.0 not being consistently faster across different scales and the Intel
     compiler icc version 16 being significantly faster than gcc7.1.0.
     -O3 and -Ofast each gave significant speedups on gcc, while -xHost - designed to adapt the code for the specific Intel processor - offered no speedup
@@ -34,22 +35,52 @@
     \subsection{Profiling}
     After getting the initial simple speedup from compiler flags, I ran gprof to get an intuition for where the majority of the runtime is located.
     The results were as following on the 1024 image.
-    \begin{center}
-    \begin{tabular}{ c c c c }
-    Percentage Time & Self Seconds & Calls & Name \\
+    \begin{right}
+    \begin{tabular}{| c | c | c | c |}
+    Percentage Time & Self Seconds & Calls & Name \\ \hline
     99.84 & 8.19 & 200 & stencil \\
     0.37 & 0.03 & 1 & init\_image \\
     0.12 & 0.01 & 1 & output\_image \\
     0.00 & 0.00 & 2 & wtime
     \end{tabular}
-    \end{center}
-    From the gprof profiling, it's very clear that the stencil function is the limiter on the code speed, since it is run 200 times. As such
+    \end{right}
+    Data from the gprof profiling. It's very clear that the $stencil$ function is the limiter on the code speed, since it is run 200 times. As such
     it makes the most sense to focus optimisation on this one function.
-    \subsection{Applied Optimisation}
+    \subsection{Code Optimisation}
     My first thought for optimising the code was to reduce the math operation for each part of the stencil, changing the value change by multiplication 
     then division by simplifying into a single multiplication. While this change may be already carried out by the more rigorous compiler flags, it makes
     the code more readable and from my own research multiplication is at least as fast as division in many languages.
-    Following this 
+    Following this I tried swapping the values of $i$ and $j$ to hopefully achieve better ordering; in the course of which I realised that I could try
+    accessing the image array with some single variable $z$ allowing me to use a single loop and potentially achieve better vectorisation since there would
+    no longer be any nesting.
+    Through math changes and compiler flags as listed above the small image was computing in about 1.37 seconds. It was at this point that I decided it would
+    be worthwhile to run a vectorisation report with gcc to get an idea of what was limiting the vectorisation. \n
+    From gcc's vectorisation report I found out that as I had expected, the nesting of loops was a major reason why the code was not vectorising, followed
+    by conditionals/branching within loops. I remembered from lecture content that restricting pointers might also help with vectorisation and other optimisation,
+    since $tmp\_image$ and $image$ are wholly separate lists, there was no danger in stating in $stencil$ that they were restricted pointers and didn't access any
+    of the same memory space. This change led to the code running in $1/3$ the time, 0.441 seconds.
+    \subsection{Failed Optimisations}
+    At this point I tried first swapping to a single for loop structure within $stencil$, however that change alone made no difference to the runtime - I imagine
+    since no additional vectorisation could occur since the conditionals were still in $stencil$ - and worse yet, I couldn't manage to implement in such a way that
+    it would work correctly, the python script would always fail.\n
+    Then I split up computation into several discrete for loops, two for the top and bottom row edge cases and two for the left and right column edge cases, with
+    each corner of the grid being computed outside of any loop. This allowed me to remove most conditionals from the main for loop body, though I still needed
+    to check when $z$ in the main for loop hit the rightmost column so I could increase it to skip the left and right edge cases.\n
+    After implementing these changes the code ran in nearly $1/2$ the time that I had reached before, 0.253 seconds - I imagine due to a higher level of vectorisation
+    since I had removed the conditionals and nested nested loops - unfortunately this code too did not pass the python script.
+    I reverted my changes back to the last correct code commit and tried swapping $double$ data types for $float$, which in theory should allow more of the 
+    image data to fit in cache at once, reduce the amount of cache misses and thereby reduce the amount of cycles used on accessing higher levels of cache or DRAM.
+    However when I made the change and tested it the runtime got longer
+    \subsection{End Results}
+    It was at this point that I found my most interesting result, I tested different compilers again to see if icc could still offer some performance increase like
+    it had when the code was fully unoptimised. As seen below, icc16 was slower across all image sizes
     
-    Following this change I 
+    \begin{right}
+    \begin{tabular}{| c | c | c | c |}
+    Compiler & 1024 image/s & 4096 image/s & 8000 image/s \\ \hline
+    gcc7.1.0 -Ofast & 0.441 & 7.58 & 30.2 \\
+    icc16 -Ofast & 0.542 & 9.38 & 35.6 
+    \end{tabular}
+    \end {right}
+    
     \end{document}
